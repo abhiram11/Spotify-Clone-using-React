@@ -17,4 +17,23 @@ const scopes = [
 
 export const loginUrl = `${authEndPoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
   "%20"
-)}&response_type=token&show_dialogue=true`;
+)}&response_type=token&show_dialog=true`;
+
+export const getTokenFromUrl = () => {
+  // extracts out everything after the # from the url received
+  //2:54:00 REDUCE IS VERY USEFUL!
+  return (
+    //http://localhost:3000/#access_token=SECRET_TOKEN_r&token_type=Bearer&expires_in=3600
+    //JUST GRABBING THE ACCESS TOKEN FROM HERE, use split etc
+    window.location.hash
+      //#access_token=SECRET_TOKEN_r&token_type=Bearer&expires_in=3600
+      .substring(1)
+      .split("&")
+      .reduce((initial, item) => {
+        let parts = item.split("=");
+        initial[parts[0]] = decodeURIComponent(parts[1]);
+
+        return initial;
+      }, {})
+  );
+};
