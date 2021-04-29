@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
+import SpotifyWebApi from "spotify-web-api-js";
 import "./App.css";
 import Login from "./Login";
 import { getTokenFromUrl } from "./spotify";
+import Player from "./Player";
 // 2:47:00, 2:58:30 and 2:59:50 useEffect, 3:05:20 production syntax use _ for temporary/local variables
+// 3:14:40 regarding upwork
+
+const spotify = new SpotifyWebApi();
 
 function App() {
   const [token, setToken] = useState(null);
@@ -12,12 +17,17 @@ function App() {
     console.log("Token/Hash  Received : ", hash);
     window.location.hash = "";
     const _token = hash.access_token; //regular json
-
-    if (_token) {
-      setToken(_token);
-    }
     //NOW USE THIS TOKEN TO CONNECT TO OFFICIAL SPOTIFY
     //for security reasons, we dont want token to sit/stay in the URL
+    if (_token) {
+      //After getting the logged in page, now use this KEY to talk to spotify
+      setToken(_token);
+
+      spotify.setAccessToken(_token);
+      spotify.getMe().then((user) => {
+        console.log("User :", user);
+      }); //fetch my user info! Returns a promise -> so async used!
+    }
   }, []);
 
   return (
@@ -28,7 +38,7 @@ function App() {
       {
         // using JSX here
         //render the spotify app, else render the login page again
-        token ? <h1>I have logged in!</h1> : <Login />
+        token ? <Player /> : <Login />
       }
       {/* {<Login />} */}
     </div>
