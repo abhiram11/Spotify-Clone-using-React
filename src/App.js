@@ -15,12 +15,14 @@ import { useDataLayerValue } from "./DataLayer";
 // 3:43:40 CONTEXT, Data Layer explained cleanly in amazon project by them as well.
 //  3:45:00 to learn STATE MANAGEMENT API, Learn RECOIL
 //3:48:10 const [{ user }, dispatch] = useDataLayerValue(); can be used anywhere to pull the user from the DATA LAYER!
+// 4:05:40 body takes 80% and sidbar 20%...
+// 4:10.20 what does linear gradient mean in background color, what is (transparent, rgba) as well
 
 const spotify = new SpotifyWebApi();
 
 function App() {
-  const [token, setToken] = useState(null);
-  const [{ user }, dispatch] = useDataLayerValue(); // {} used to PULL info from data layer
+  // const [token, setToken] = useState(null);
+  const [{ user, token }, dispatch] = useDataLayerValue(); // {} used to PULL info from data layer
   // Alternative : const [DataLayer, dispatch] = useDataLayerValue();
   // and then DataLayer.user
 
@@ -33,12 +35,16 @@ function App() {
     //for security reasons, we dont want token to sit/stay in the URL
     if (_token) {
       //After getting the logged in page, now use this KEY to talk to spotify
-      setToken(_token);
+      // setToken(_token);
+      spotify.setAccessToken(token);
 
-      spotify.setAccessToken(_token);
+      dispatch({
+        type: "SET_TOKEN",
+        token: _token,
+      });
+
       spotify.getMe().then((user) => {
         // console.log("User :", user);
-
         dispatch({
           type: "SET_USER",
           user: user, //can also just send "user" instead of "user : user"
@@ -48,6 +54,7 @@ function App() {
   }, []);
 
   console.log("User after Dispatch:", user);
+  console.log("Token after Dispatch:", token);
 
   return (
     <div className="App">
@@ -57,7 +64,7 @@ function App() {
       {
         // using JSX here
         //render the spotify app, else render the login page again
-        token ? <Player /> : <Login />
+        token ? <Player spotify /> : <Login /> // Prop Drilling level 0 !
       }
       {/* {<Login />} */}
     </div>

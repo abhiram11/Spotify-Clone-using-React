@@ -1,0 +1,7 @@
+.footer {
+  position: fixed; /* position is fixed to bottom of screen */
+  bottom: 0;
+  height: 65px; /* copied from spotify */
+  width: 100%;
+  background-color: #282828;
+}
