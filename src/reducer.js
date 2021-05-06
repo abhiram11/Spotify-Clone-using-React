@@ -7,7 +7,8 @@ export const initialState = {
   item: null, //what song is playing
 
   //Remove this after finished developing..
-  token: null,
+  token:
+    "BQD3p-euRsPeKWgxehEIjvEtU_NFmr6tOc7rjHo4B1wC6-CXlh…iQt8XuX_31p_qF2fDggH4hl21btcEc-cAJGZDoL9T5PeB0u7b",
 };
 
 //       (current state, SETTER of the states)

@@ -2,8 +2,8 @@ export const authEndPoint = "https://accounts.spotify.com/authorize";
 
 const redirectUri = "http://localhost:3000/";
 
-const clientId = "158906090d7e45e9afd8b3eedc439558";
-
+const clientId = "081aff9e37b1416aa50be6eac7e635b3";
+// 158906090d7e45e9afd8b3eedc439558
 // SCOPES are somewhat like permissions
 const scopes = [
   "user-read-currently-playing",
@@ -24,9 +24,12 @@ export const getTokenFromUrl = () => {
   //2:54:00 REDUCE IS VERY USEFUL!
   return (
     //http://localhost:3000/#access_token=SECRET_TOKEN_r&token_type=Bearer&expires_in=3600
-    //JUST GRABBING THE ACCESS TOKEN FROM HERE, use split etc
-    window.location.hash
-      //#access_token=SECRET_TOKEN_r&token_type=Bearer&expires_in=3600
+    //JUST GRABBING THE ACCESS TOKEN FROM HERE, similar to use of split etc
+
+    //#access_token=SECRET_TOKEN_r&token_type=Bearer&expires_in=3600
+    // window.location.hash
+
+    ""
       .substring(1)
       .split("&")
       .reduce((initial, item) => {

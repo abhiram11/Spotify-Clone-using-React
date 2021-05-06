@@ -17,6 +17,7 @@ import { useDataLayerValue } from "./DataLayer";
 //3:48:10 const [{ user }, dispatch] = useDataLayerValue(); can be used anywhere to pull the user from the DATA LAYER!
 // 4:05:40 body takes 80% and sidbar 20%...
 // 4:10.20 what does linear gradient mean in background color, what is (transparent, rgba) as well
+// 4:11:50 what is viewheight, what is 100vh
 
 const spotify = new SpotifyWebApi();
 
@@ -44,7 +45,7 @@ function App() {
       });
 
       spotify.getMe().then((user) => {
-        // console.log("User :", user);
+        console.log("GetME User :", user);
         dispatch({
           type: "SET_USER",
           user: user, //can also just send "user" instead of "user : user"
@@ -66,7 +67,6 @@ function App() {
         //render the spotify app, else render the login page again
         token ? <Player spotify /> : <Login /> // Prop Drilling level 0 !
       }
-      {/* {<Login />} */}
     </div>
   );
 }
