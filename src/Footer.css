@@ -4,4 +4,32 @@
   height: 65px; /* copied from spotify */
   width: 100%;
   background-color: #282828;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer::-webkit-scrollbar {
+  display: none;
+}
+
+/* we always want footer to take 30%, center to take 40%, and right to 30%  */
+.footer_left {
+  flex: 0.3;
+}
+
+.footer_center {
+  flex: 0.4;
+  padding: 0 100px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 300px;
+}
+.footer_right {
+  flex: 0.3;
+  display: flex;
+  align-items: center;
+  color: white;
+  justify-content: space-between;
 }

@@ -18,6 +18,11 @@ import { useDataLayerValue } from "./DataLayer";
 // 4:05:40 body takes 80% and sidbar 20%...
 // 4:10.20 what does linear gradient mean in background color, what is (transparent, rgba) as well
 // 4:11:50 what is viewheight, what is 100vh
+// 4:27:50 and 4:28:30 Icon and Title in sidebar are two children in one container, make them in one row using FLEX
+// 4:37:00 we are using only the required part from the data layer, effective and optimized!
+// 4:42:00 Three containers, equally spaced out as footer
+//4:48:00 new way to write padding, 0 100px
+// 4:50:00 slider gives headaches, GRID usage, why used..etc..
 
 const spotify = new SpotifyWebApi();
 
@@ -29,20 +34,21 @@ function App() {
 
   useEffect(() => {
     const hash = getTokenFromUrl(); //when we get redicrected back from spotify, we need that token
-    console.log("Token/Hash  Received : ", hash);
+    console.log("Hash  Received : ", hash);
     window.location.hash = "";
     const _token = hash.access_token; //regular json
     //NOW USE THIS TOKEN TO CONNECT TO OFFICIAL SPOTIFY
     //for security reasons, we dont want token to sit/stay in the URL
     if (_token) {
-      //After getting the logged in page, now use this KEY to talk to spotify
-      // setToken(_token);
-      spotify.setAccessToken(token);
+      spotify.setAccessToken(_token);
 
       dispatch({
         type: "SET_TOKEN",
         token: _token,
       });
+
+      //After getting the logged in page, now use this KEY to talk to spotify
+      // setToken(_token);
 
       spotify.getMe().then((user) => {
         console.log("GetME User :", user);
@@ -51,6 +57,15 @@ function App() {
           user: user, //can also just send "user" instead of "user : user"
         });
       }); //fetch my user info! Returns a promise -> so async used!
+
+      //getUserPlaylists returns a promise, so async (then) used! then gives playlists which are dispatched
+      // to datalayer
+      spotify.getUserPlaylists().then((playlists) => {
+        dispatch({
+          type: "SET_PLAYLISTS",
+          playlists: playlists,
+        });
+      });
     }
   }, []);
 
@@ -65,7 +80,7 @@ function App() {
       {
         // using JSX here
         //render the spotify app, else render the login page again
-        token ? <Player spotify /> : <Login /> // Prop Drilling level 0 !
+        token ? <Player spotify={spotify} /> : <Login /> // Pass the spotify object as a prop, couldve been done as a DataLAyer as well. Prop Drilling level 0 !
       }
     </div>
   );

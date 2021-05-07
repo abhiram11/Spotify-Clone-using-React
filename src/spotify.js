@@ -27,9 +27,7 @@ export const getTokenFromUrl = () => {
     //JUST GRABBING THE ACCESS TOKEN FROM HERE, similar to use of split etc
 
     //#access_token=SECRET_TOKEN_r&token_type=Bearer&expires_in=3600
-    // window.location.hash
-
-    ""
+    window.location.hash
       .substring(1)
       .split("&")
       .reduce((initial, item) => {
