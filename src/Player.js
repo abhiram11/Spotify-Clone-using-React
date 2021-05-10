@@ -10,13 +10,13 @@ function Player({ spotify }) {
     <div className="player">
       <div className="player_body">
         <Sidebar />
-        <Body />
+        <Body spotify={spotify} />
       </div>
       {/* Body, which also contains the header that stays at top! */}
       {/* add <h1> to check if components working or noi */}
       {/* <h1> Welcome to Spotify! You are logged in!</h1> */}
       {/* Footer */}
-      <Footer />
+      <Footer spotify={spotify} />
     </div>
   );
 }

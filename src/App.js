@@ -23,6 +23,9 @@ import { useDataLayerValue } from "./DataLayer";
 // 4:42:00 Three containers, equally spaced out as footer
 //4:48:00 new way to write padding, 0 100px
 // 4:50:00 slider gives headaches, GRID usage, why used..etc..
+// 4:57:00 footer buttons and their hover, transition, why material UI given !important tag in css, MaterialUI-Slider class in CSS
+// 5:12:00 the body can be made using banner like netflix, or just in one component to reduce stress on build probably
+// 5:17:00 height 20vw VW makes the size responsive!!
 
 const spotify = new SpotifyWebApi();
 
@@ -61,13 +64,36 @@ function App() {
       //getUserPlaylists returns a promise, so async (then) used! then gives playlists which are dispatched
       // to datalayer
       spotify.getUserPlaylists().then((playlists) => {
+        console.log("Playlists in App:", playlists);
         dispatch({
           type: "SET_PLAYLISTS",
           playlists: playlists,
         });
+
+        if (playlists) {
+          spotify.getPlaylist(playlists.items[0].id).then((response) =>
+            dispatch({
+              type: "SET_DISCOVER_WEEKLY",
+              discover_weekly: response,
+            })
+          );
+        }
+      });
+
+      spotify.getMyTopArtists().then((response) =>
+        dispatch({
+          type: "SET_TOP_ARTISTS",
+          top_artists: response,
+        })
+      );
+
+      //What does this do??
+      dispatch({
+        type: "SET_SPOTIFY",
+        spotify: spotify,
       });
     }
-  }, []);
+  }, [spotify, token, dispatch]);
 
   console.log("User after Dispatch:", user);
   console.log("Token after Dispatch:", token);
