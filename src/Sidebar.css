@@ -1,0 +1,27 @@
+.sidebar {
+  /* border: 1px solid black; */
+  height: 100vh; /* This makes the sidebar go all the way down */
+  min-width: 230px;
+  padding-left: 10px;
+  padding-right: 10px;
+  flex: 0.2;
+  color: white; /*Means the color of the texts, etc */
+  background-color: #040404;
+  height: 100vh;
+}
+
+.sidebar_logo {
+  /* width: 100%; */
+  margin-right: auto;
+  height: 70px;
+  padding: 10px;
+  /* margin-right: 10px; */
+  /* height: 70px; */
+  /* object-fit: contain; */
+}
+
+.sidebar_title {
+  margin-left: 10px;
+  padding: 5px;
+  font-size: 12px;
+}
