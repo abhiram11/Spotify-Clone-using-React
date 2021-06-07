@@ -1,7 +1,7 @@
 # Getting Started with Create React App 
 # Website - https://spotify-clone-e93b9.web.app/
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). I learnt this project from CleverProgrammer and Sonny Sangha.
 
 ## Available Scripts
 
